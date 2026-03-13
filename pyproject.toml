@@ -1,0 +1,24 @@
+[tool.poetry]
+package-mode = false
+
+[project]
+name = "django-project"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Aurélien Amorin",email = "amorin77184@gmail.com"}
+]
+requires-python = ">=3.12"
+dependencies = [
+    "django (>=6.0.3,<7.0.0)",
+    "djangorestframework (>=3.16.1,<4.0.0)"
+]
+
+[dependency-groups]
+dev = [
+    "black"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
