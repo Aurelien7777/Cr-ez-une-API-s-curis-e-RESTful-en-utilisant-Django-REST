@@ -1,7 +1,7 @@
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-
+from .permissions import IsAuthorOrReadOnly
 from .models import Project, Contributor, Issue, Comment
 from .serializers import ProjectSerializer, ContributorSerializer, IssueSerializer, CommentSerializer
 
@@ -9,7 +9,7 @@ from .serializers import ProjectSerializer, ContributorSerializer, IssueSerializ
 class ProjectViewSet(ModelViewSet):
 
     serializer_class = ProjectSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
     
     def get_queryset(self):
         return Project.objects.filter(
@@ -46,7 +46,7 @@ class ContributorViewSet(ModelViewSet):
         
 class IssueViewSet(ModelViewSet):
     serializer_class = IssueSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
 
     def get_queryset(self):
         return Issue.objects.filter(
@@ -76,7 +76,7 @@ class IssueViewSet(ModelViewSet):
 
 class CommentViewSet(ModelViewSet):
     serializer_class = CommentSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
 
     def get_queryset(self):
         return Comment.objects.filter(

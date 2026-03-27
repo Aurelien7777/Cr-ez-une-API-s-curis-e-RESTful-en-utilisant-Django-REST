@@ -12,11 +12,11 @@ from projects.views import ProjectViewSet, ContributorViewSet, IssueViewSet, Com
 # Ici nous créons notre routeur
 router = routers.SimpleRouter()
 # Enregistre les routes CRUD de l'utilisateur
-router.register('user', UserViewSet, basename='user')
+router.register('users', UserViewSet, basename='users')
 router.register("projects", ProjectViewSet, basename="projects")
-router.register("contributors", ContributorViewSet)
-router.register("issues", IssueViewSet)
-router.register("comments", CommentViewSet)
+router.register("contributors", ContributorViewSet, basename="contributors")
+router.register("issues", IssueViewSet, basename="issues")
+router.register("comments", CommentViewSet, basename="comments")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
