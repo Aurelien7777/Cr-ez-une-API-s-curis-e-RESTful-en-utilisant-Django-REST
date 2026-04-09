@@ -6,12 +6,12 @@ import uuid
 class Project(models.Model):
     """
     Représente un projet.
-    - Contient les informations principales 
+    - Contient les informations principales
     (titre, description, type)
     - Lié à un auteur (utilisateur)
     - Date de création automatique
     """
-    
+
     BACKEND = "BACK-END"
     FRONTEND = "FRONT-END"
     IOS = "IOS"
@@ -45,7 +45,7 @@ class Contributor(models.Model):
     - Empêche les doublons (user, project)
     - Date d’ajout automatique
     """
-    
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -65,16 +65,15 @@ class Contributor(models.Model):
         return f"{self.user.username} - {self.project.title}"
 
 
-
 class Issue(models.Model):
     """
     Représente une issue (ticket) d’un projet.
     - Contient description, priorité, statut et type
-    - Liée à un projet, un auteur et 
+    - Liée à un projet, un auteur et
       éventuellement un assignee
     - Date de création automatique
     """
-    
+
     LOW = "LOW"
     MEDIUM = "MEDIUM"
     HIGH = "HIGH"
@@ -109,11 +108,7 @@ class Issue(models.Model):
     description = models.TextField()
     tag = models.CharField(max_length=20, choices=TAG_CHOICES)
     priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES)
-    status = models.CharField(
-        max_length=20,
-        choices=STATUS_CHOICES,
-        default=TODO
-    )
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=TODO)
 
     project = models.ForeignKey(
         "Project",
@@ -148,12 +143,8 @@ class Comment(models.Model):
     - Lié à un auteur et une issue
     - Date de création automatique
     """
-    
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     description = models.TextField()
 
@@ -173,4 +164,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.id)
-

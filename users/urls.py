@@ -11,7 +11,7 @@ router.register('user', UserViewset, basename='user')
 """
 
 """urlpatterns = [
-    path('api/', include(router.urls))  
+    path('api/', include(router.urls))
     # Il faut bien penser à ajouter les urls du router dans la liste des urls disponibles.
 ]
 """

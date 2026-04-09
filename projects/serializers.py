@@ -8,6 +8,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     - Champs principaux du modèle Project
     - author et created_time en lecture seule
     """
+
     class Meta:
         model = Project
         fields = [
@@ -27,6 +28,7 @@ class ContributorSerializer(serializers.ModelSerializer):
     - Associe un utilisateur à un projet
     - created_time en lecture seule
     """
+
     class Meta:
         model = Contributor
         fields = ["id", "user", "project", "created_time"]
@@ -39,6 +41,7 @@ class IssueSerializer(serializers.ModelSerializer):
     - Champs principaux d'une issue
     - author et created_time en lecture seule
     """
+
     class Meta:
         model = Issue
         fields = [
@@ -62,6 +65,7 @@ class CommentSerializer(serializers.ModelSerializer):
     - Champs principaux d'un commentaire lié à une issue
     - author et created_time en lecture seule
     """
+
     class Meta:
         model = Comment
         fields = [

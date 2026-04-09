@@ -12,13 +12,17 @@ requires-python = ">=3.12"
 dependencies = [
     "django (>=5.2,<5.3)",
     "djangorestframework (>=3.16,<3.17)",
-    "djangorestframework-simplejwt (>=5.5.1,<6.0.0)"
+    "djangorestframework-simplejwt (>=5.5.1,<6.0.0)",
 ]
 
 [dependency-groups]
 dev = [
-    "black"
+    "black",
+    "flake8 (>=7.3.0,<8.0.0)"
 ]
+
+[tool.black]
+line-length = 100
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
