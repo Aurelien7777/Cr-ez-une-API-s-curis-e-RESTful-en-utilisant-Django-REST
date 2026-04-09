@@ -72,6 +72,11 @@ Ce projet répond aux exigences suivantes :
 * Poetry
 * SQLite3
 
+## Outils de développement
+
+* Black (formatage du code)
+* Flake8 (analyse statique)
+
 ---
 
 ## Structure du projet
