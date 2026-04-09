@@ -3,7 +3,18 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True) # masque le mot de passe
+    """ 
+    Permet de convertir les données JSON 
+    en objets Django et inversement.
+    Assure la validation des données,
+    notamment de l'âge minimum,
+    et gère la création des utilisateurs 
+    avec un mot de passe hashé
+    via la méthode create_user.
+    """
+    
+    # masque le mot de passe dans les communications
+    password = serializers.CharField(write_only=True) 
 
     class Meta:
         model = User

@@ -7,16 +7,31 @@ from .serializers import ProjectSerializer, ContributorSerializer, IssueSerializ
 
 
 class ProjectViewSet(ModelViewSet):
+    
+    """ 
+    Gestion des projets (CRUD).
+    - Accès : projets où l'utilisateur est contributeur
+    - Permissions : authentifié + auteur pour modifier
+    - Création : assigne l'auteur et l'ajoute comme contributeur
+    """
 
     serializer_class = ProjectSerializer
     permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
     
     def get_queryset(self):
+        """
+        Définit quels objets de la base 
+        cette vue est autorisée à manipuler / consulter
+        """
         return Project.objects.filter(
             contributors__user=self.request.user
         )
 
     def perform_create(self, serializer):
+        """ 
+        Ajoute l'utilisateur effectuant la création 
+        comme l'auteur ainsi que le contributeur
+        """
         project = serializer.save(author=self.request.user)
         Contributor.objects.create(
             user=self.request.user,
@@ -24,10 +39,23 @@ class ProjectViewSet(ModelViewSet):
         )
 
 class ContributorViewSet(ModelViewSet):
+
+    """
+    Gestion des contributeurs (CRUD).
+    - Accès : contributeurs des projets où l'utilisateur participe
+    - Permissions : authentifié
+    - Création : uniquement si l'utilisateur est déjà contributeur du projet
+    """
     serializer_class = ContributorSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        """ 
+        La fonction détermine
+        quels objets Contributor 
+        l’utilisateur connecté a le droit 
+        de voir ou manipuler
+        """
         return Contributor.objects.filter(
             project__contributors__user=self.request.user
         )
@@ -45,6 +73,15 @@ class ContributorViewSet(ModelViewSet):
         serializer.save()
         
 class IssueViewSet(ModelViewSet):
+    
+    """
+    Gestion des issues (CRUD).
+
+    - Accès : issues des projets où l'utilisateur est contributeur
+    - Permissions : authentifié + auteur pour modifier
+    - Création : utilisateur et assignee doivent être contributeurs,
+    auteur assigné automatiquement
+    """
     serializer_class = IssueSerializer
     permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
 
@@ -75,6 +112,14 @@ class IssueViewSet(ModelViewSet):
         serializer.save(author=self.request.user)
 
 class CommentViewSet(ModelViewSet):
+    """
+    Gestion des commentaires (CRUD).
+
+    - Accès : commentaires liés aux projets où l'utilisateur est contributeur
+    - Permissions : authentifié + auteur pour modifier
+    - Création : uniquement si contributeur du projet, auteur assigné automatiquement
+    """
+    
     serializer_class = CommentSerializer
     permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
 

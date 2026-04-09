@@ -20,10 +20,8 @@ router.register("comments", CommentViewSet, basename="comments")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path("", include("users.urls")),
     path('api-auth/', include('rest_framework.urls')),
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    # Il faut bien penser à ajouter les urls du router dans la liste des urls disponibles.
     path('api/', include(router.urls)),
 ]

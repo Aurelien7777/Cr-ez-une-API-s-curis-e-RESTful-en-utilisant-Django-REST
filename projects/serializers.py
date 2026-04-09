@@ -3,6 +3,11 @@ from .models import Project, Contributor, Issue, Comment
 
 
 class ProjectSerializer(serializers.ModelSerializer):
+    """
+    Serializer des projets.
+    - Champs principaux du modèle Project
+    - author et created_time en lecture seule
+    """
     class Meta:
         model = Project
         fields = [
@@ -17,6 +22,11 @@ class ProjectSerializer(serializers.ModelSerializer):
 
 
 class ContributorSerializer(serializers.ModelSerializer):
+    """
+    Serializer des contributeurs.
+    - Associe un utilisateur à un projet
+    - created_time en lecture seule
+    """
     class Meta:
         model = Contributor
         fields = ["id", "user", "project", "created_time"]
@@ -24,6 +34,11 @@ class ContributorSerializer(serializers.ModelSerializer):
 
 
 class IssueSerializer(serializers.ModelSerializer):
+    """
+    Serializer des issues.
+    - Champs principaux d'une issue
+    - author et created_time en lecture seule
+    """
     class Meta:
         model = Issue
         fields = [
@@ -42,6 +57,11 @@ class IssueSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    """
+    Serializer des commentaires.
+    - Champs principaux d'un commentaire lié à une issue
+    - author et created_time en lecture seule
+    """
     class Meta:
         model = Comment
         fields = [

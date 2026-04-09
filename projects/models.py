@@ -4,6 +4,14 @@ import uuid
 
 
 class Project(models.Model):
+    """
+    Représente un projet.
+    - Contient les informations principales 
+    (titre, description, type)
+    - Lié à un auteur (utilisateur)
+    - Date de création automatique
+    """
+    
     BACKEND = "BACK-END"
     FRONTEND = "FRONT-END"
     IOS = "IOS"
@@ -31,6 +39,13 @@ class Project(models.Model):
 
 
 class Contributor(models.Model):
+    """
+    Représente un contributeur d’un projet.
+    - Associe un utilisateur à un projet
+    - Empêche les doublons (user, project)
+    - Date d’ajout automatique
+    """
+    
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -52,6 +67,14 @@ class Contributor(models.Model):
 
 
 class Issue(models.Model):
+    """
+    Représente une issue (ticket) d’un projet.
+    - Contient description, priorité, statut et type
+    - Liée à un projet, un auteur et 
+      éventuellement un assignee
+    - Date de création automatique
+    """
+    
     LOW = "LOW"
     MEDIUM = "MEDIUM"
     HIGH = "HIGH"
@@ -119,6 +142,13 @@ class Issue(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Représente un commentaire sur une issue.
+    - Identifié par un UUID
+    - Lié à un auteur et une issue
+    - Date de création automatique
+    """
+    
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -143,3 +173,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.id)
+
