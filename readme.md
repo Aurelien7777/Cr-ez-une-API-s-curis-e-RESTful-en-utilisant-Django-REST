@@ -94,7 +94,7 @@ django_project/
 ### 1. Cloner le projet
 
 ```bash
-git clone <URL_DU_REPO>
+git clone https://github.com/Aurelien7777/Cr-ez-une-API-s-curis-e-RESTful-en-utilisant-Django-REST
 cd django_project
 ```
 
@@ -104,24 +104,35 @@ cd django_project
 poetry install
 ```
 
-### 3. Activer l’environnement
+### 3. Appliquer les migrations
 
 ```bash
-poetry shell
+poetry run python manage.py migrate
 ```
 
-### 4. Appliquer les migrations
+### 4. Lancer le serveur
 
 ```bash
-python manage.py migrate
+poetry run python manage.py runserver
 ```
 
-### 5. Lancer le serveur
+---
 
-```bash
-python manage.py runserver
+## Création d’un utilisateur
+
+```http
+POST /api/users/
 ```
 
+```
+{
+  "username": "mon_user",
+  "password": "mon_mot_de_passe",
+  "age": 25,
+  "can_be_contacted": true,
+  "can_data_be_shared": false
+}
+```
 ---
 
 ## Authentification JWT
@@ -141,6 +152,7 @@ POST /api/token/
 
 ### Réponse
 
+
 ```json
 {
   "refresh": "...",
@@ -158,43 +170,16 @@ Authorization: Bearer <access_token>
 
 ---
 
-## Endpoints
 
-### Utilisateurs
+## Endpoints principaux
 
-* `POST /api/users/`
-* `GET /api/users/`
-* `GET /api/users/{id}/`
-* `PATCH /api/users/{id}/`
-* `DELETE /api/users/{id}/`
-
-### JWT
-
-* `POST /api/token/`
-* `POST /api/token/refresh/`
-
-### Projets
-
-* `GET /api/projects/`
-* `POST /api/projects/`
-* `GET /api/projects/{id}/`
-* `PATCH /api/projects/{id}/`
-* `DELETE /api/projects/{id}/`
-
-### Contributeurs
-
-* `GET /api/contributors/`
-* `POST /api/contributors/`
-
-### Issues
-
-* `GET /api/issues/`
-* `POST /api/issues/`
-
-### Commentaires
-
-* `GET /api/comments/`
-* `POST /api/comments/`
+- `POST /api/users/`
+- `POST /api/token/`
+- `POST /api/token/refresh/`
+- `GET, POST /api/projects/`
+- `GET, POST /api/contributors/`
+- `GET, POST /api/issues/`
+- `GET, POST /api/comments/`
 
 ---
 
@@ -256,9 +241,8 @@ djangorestframework-simplejwt
 
 ```bash
 poetry install
-poetry shell
-python manage.py migrate
-python manage.py runserver
+poetry run python manage.py migrate
+poetry run python manage.py runserver
 ```
 
 ---
